@@ -11,7 +11,7 @@ import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
  * Reactive方式实现的zk客户端
  */
 public class ReactiveClient {
-    public static final String ADDRESS = "192.168.205.145:2181,192.168.205.146:2181,192.168.205.147:2181,192.168.205.148:2181";
+    
     private static final ZooKeeper CLIENT = ZookeeperConfig.create();
 
     public static void main(String[] args) {
