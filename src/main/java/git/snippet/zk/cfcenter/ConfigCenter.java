@@ -10,7 +10,7 @@ import org.apache.zookeeper.data.Stat;
 import java.util.concurrent.CountDownLatch;
 
 public class ConfigCenter implements Watcher, AsyncCallback.StatCallback, AsyncCallback.DataCallback {
-    private final CountDownLatch latch = new CountDownLatch(1);
+    private CountDownLatch latch = new CountDownLatch(1);
     private final ZooKeeper zk = ZookeeperConfig.create();
     private final String conf;
     private String value;
@@ -42,14 +42,21 @@ public class ConfigCenter implements Watcher, AsyncCallback.StatCallback, AsyncC
             case None:
                 break;
             case NodeCreated:
-                System.out.println("created");
+                System.out.println("node created");
                 zk.getData(conf, this, this, "node created");
                 latch.countDown();
                 break;
             case NodeDeleted:
+                try {
+                    System.out.println("config deleted");
+                    this.value = "";
+                    latch = new CountDownLatch(1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case NodeDataChanged:
-                System.out.println("changed");
+                System.out.println("node changed");
                 zk.getData(conf, this, this, "node changed");
                 latch.countDown();
                 break;

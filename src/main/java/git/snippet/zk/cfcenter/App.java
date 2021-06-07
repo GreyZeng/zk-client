@@ -8,9 +8,15 @@ import static git.snippet.zk.Utils.pending;
 public class App {
     public static void main(String[] args) {
         String path = "/AppConf";
+
         while (true) {
-            String conf = new ConfigCenter(path).getConf();
-            System.out.println(conf);
+            ConfigCenter configCenter = new ConfigCenter(path);
+            String conf = configCenter.getConf();
+            if (null != conf && !conf.trim().isEmpty()) {
+                System.out.println(conf);
+            } else {
+                configCenter.getConf();
+            }
             pending(1000);
         }
     }
