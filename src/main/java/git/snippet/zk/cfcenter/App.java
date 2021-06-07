@@ -7,10 +7,10 @@ import static git.snippet.zk.Utils.pending;
  */
 public class App {
     public static void main(String[] args) {
-        String conf = "/AppConf";
+        String path = "/AppConf";
         while (true) {
-            String value = ConfigCenter.getConf(conf);
-            System.out.println(value);
+            String conf = new ConfigCenter(path).getConf();
+            System.out.println(conf);
             pending(1000);
         }
     }
