@@ -38,6 +38,9 @@ public class ZookeeperConfig {
         public void process(WatchedEvent event) {
             if (event.getState() == Event.KeeperState.SyncConnected) {
                 latch.countDown();
+            } else if (event.getState() == Event.KeeperState.Disconnected) {
+                // 关闭连接
+                latch = new CountDownLatch(1);
             }
         }
     }

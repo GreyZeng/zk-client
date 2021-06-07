@@ -1,8 +1,12 @@
 package git.snippet.zk;
 
-import org.apache.zookeeper.*;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.WatchedEvent;
+import org.apache.zookeeper.Watcher;
+import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 
+import static git.snippet.zk.Utils.pending;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.apache.zookeeper.CreateMode.EPHEMERAL;
 import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
@@ -11,7 +15,7 @@ import static org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE;
  * Reactive方式实现的zk客户端
  */
 public class ReactiveClient {
-    
+
     private static final ZooKeeper CLIENT = ZookeeperConfig.create();
 
     public static void main(String[] args) {
@@ -79,15 +83,6 @@ public class ReactiveClient {
         createOrUpdate(path, "world");
         result = getData(path);
         System.out.println(result);
-    }
-
-    public static void pending(long sec) {
-        try {
-            Thread.sleep(sec);
-            ZookeeperConfig.close();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 
