@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 public class ZookeeperConfig {
-    public static final String ADDRESS = "192.168.205.145:2181,192.168.205.146:2181,192.168.205.147:2181,192.168.205.148:2181";
+    public static final String ADDRESS = "192.168.150.128:2181,192.168.150.130:2181,192.168.150.131:2181,192.168.150.132:2181";
     private static ZooKeeper zk;
     static CountDownLatch latch;
     public static ZooKeeper create(String address) {
